@@ -6,7 +6,7 @@
             <h6>Manage Group Permissions</h6>
         </div>
         <div class="page-btn">
-            <a class="btn btn-added" href="createpermission.html"><img src="{{ asset('admin/assets/img/icons/plus.svg') }}"
+            <a class="btn btn-added" href="{{route('addPermission.setting')}}"><img src="{{ asset('admin/assets/img/icons/plus.svg') }}"
                     alt="img" class="me-1">Add Group Permission</a>
         </div>
     </div>
@@ -67,7 +67,7 @@
                                 <span class="badges bg-lightgreen">Active</span>
                             </td>
                             <td class="text-end">
-                                <a class="me-3" href="editpermission.html">
+                                <a class="me-3" href="{{route('editPermission.setting')}}">
                                     <img src="{{ asset('admin/assets/img/icons/edit.svg') }}" alt="img">
                                 </a>
                                 <a class="me-3 confirm-text" href="javascript:void(0);">
@@ -88,7 +88,7 @@
                                 <span class="badges bg-lightgreen">Active</span>
                             </td>
                             <td class="text-end">
-                                <a class="me-3" href="editpermission.html">
+                                <a class="me-3" href="{{route('editPermission.setting')}}">
                                     <img src="{{ asset('admin/assets/img/icons/edit.svg') }}" alt="img">
                                 </a>
                                 <a class="me-3 confirm-text" href="javascript:void(0);">
@@ -109,7 +109,7 @@
                                 <span class="badges bg-lightgreen">Active</span>
                             </td>
                             <td class="text-end">
-                                <a class="me-3" href="editpermission.html">
+                                <a class="me-3" href="{{route('editPermission.setting')}}">
                                     <img src="{{ asset('admin/assets/img/icons/edit.svg') }}" alt="img">
                                 </a>
                                 <a class="me-3 confirm-text" href="javascript:void(0);">

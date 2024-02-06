@@ -6,7 +6,7 @@
             <h6>Manage your purchases</h6>
         </div>
         <div class="page-btn">
-            <a href="addpurchase.html" class="btn btn-added">
+            <a href="{{route('purchase.create')}}" class="btn btn-added">
                 <img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img">Add New Purchases
             </a>
         </div>

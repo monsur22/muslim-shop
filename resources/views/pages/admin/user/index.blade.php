@@ -6,7 +6,7 @@
             <h6>Manage your User</h6>
         </div>
         <div class="page-btn">
-            <a href="adduser.html" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img" class="me-2">Add User</a>
+            <a href="{{route('users.create')}}" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img" class="me-2">Add User</a>
         </div>
     </div>
 

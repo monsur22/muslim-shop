@@ -6,7 +6,7 @@
             <h6>Transfer your stocks to one store another store.</h6>
         </div>
         <div class="page-btn">
-            <a href="addtransfer.html" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img" class="me-2">Add Transfer</a>
+            <a href="{{route('transfer.create')}}" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img" class="me-2">Add Transfer</a>
         </div>
     </div>
 

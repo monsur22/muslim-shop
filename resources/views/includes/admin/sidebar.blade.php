@@ -2,7 +2,7 @@
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-                <li class="active">
+                <li class="active default-active">
                     <a href="{{route('dashboard')}}"><img src="{{asset('admin/assets/img/icons/dashboard.svg')}}" alt="img"><span>
                             Dashboard</span> </a>
                 </li>

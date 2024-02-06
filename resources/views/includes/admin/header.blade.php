@@ -173,7 +173,7 @@
                         <span class="user-img"><img src="{{asset('admin/assets/img/profiles/avator1.jpg')}}" alt="">
                             <span class="status online"></span></span>
                         <div class="profilesets">
-                            <h6>{{ Auth::user()->name }}</h6>
+                            {{ Auth::check() ? Auth::user()->name : '' }}
                             <h5>Admin</h5>
                         </div>
                     </div>

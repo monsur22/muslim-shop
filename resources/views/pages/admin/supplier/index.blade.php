@@ -6,7 +6,7 @@
             <h6>Manage your Supplier</h6>
         </div>
         <div class="page-btn">
-            <a href="addsupplier.html" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img">Add Supplier</a>
+            <a href="{{route('suppliers.create')}}" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img">Add Supplier</a>
         </div>
     </div>
 
