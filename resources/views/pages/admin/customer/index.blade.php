@@ -6,7 +6,7 @@
             <h6>Manage your Customers</h6>
         </div>
         <div class="page-btn">
-            <a href="addcustomer.html" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img">Add Customer</a>
+            <a href="{{route('customers.create')}}" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img">Add Customer</a>
         </div>
     </div>
 

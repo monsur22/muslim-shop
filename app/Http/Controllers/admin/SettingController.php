@@ -42,12 +42,12 @@ class SettingController extends Controller
     }
     public function addPermissionSetting()
     {
-        return view('pages/admin/setting/createpermission');
+        return view('pages/admin/permission/createpermission');
 
     }
     public function editPermissionSetting()
     {
-        return view('pages/admin/setting/editpermission');
+        return view('pages/admin/permission/editpermission');
 
     }
 

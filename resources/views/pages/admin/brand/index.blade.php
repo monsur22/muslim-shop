@@ -6,7 +6,7 @@
             <h6>Manage your Brand</h6>
         </div>
         <div class="page-btn">
-            <a href="addbrand.html" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" class="me-2" alt="img">Add Brand</a>
+            <a href="{{route('brands.create')}}" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" class="me-2" alt="img">Add Brand</a>
         </div>
     </div>
 

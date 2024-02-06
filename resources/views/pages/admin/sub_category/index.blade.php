@@ -6,7 +6,7 @@
             <h6>View/Search product Category</h6>
         </div>
         <div class="page-btn">
-            <a href="subaddcategory.html" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" class="me-2" alt="img"> Add Sub Category</a>
+            <a href="{{route('sub-categories.create')}}" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" class="me-2" alt="img"> Add Sub Category</a>
         </div>
     </div>
 
