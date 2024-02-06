@@ -63,32 +63,75 @@
                     <h3>Create an Account</h3>
                     <h4>Continue where you left off</h4>
                 </div>
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
                 <div class="form-login">
-                    <label>Full Name</label>
+                    <label>Name</label>
                     <div class="form-addons">
-                        <input type="text" placeholder="Enter your full name">
+                        <input type="text"  placeholder="Enter your  name" name="name" :value="old('name')" required autofocus autocomplete="name">
                         <img src="{{asset('admin/assets/img/icons/users1.svg')}}" alt="img">
                     </div>
+                    @if($errors->has('name'))
+                <ul class="mt-2">
+                    @foreach($errors->get('name') as $error)
+                        <li class="text-danger">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
                 </div>
                 <div class="form-login">
                     <label>Email</label>
                     <div class="form-addons">
-                        <input type="text" placeholder="Enter your email address">
+                        <input type="text" placeholder="Enter your email address"  type="email" name="email" :value="old('email')" required autocomplete="username">
                         <img src="{{asset('admin/assets/img/icons/mail.svg')}}" alt="img">
                     </div>
+                    @if($errors->has('email'))
+                <ul class="mt-2">
+                    @foreach($errors->get('email') as $error)
+                        <li class="text-danger">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
                 </div>
                 <div class="form-login">
                     <label>Password</label>
                     <div class="pass-group">
-                        <input type="password" class="pass-input" placeholder="Enter your password">
+
+                            <input type="password" class="pass-input" placeholder="Enter your password" name="password" required autocomplete="new-password">
                         <span class="fas toggle-password fa-eye-slash"></span>
                     </div>
+                    @if($errors->has('password'))
+                <ul class="mt-2">
+                    @foreach($errors->get('password') as $error)
+                        <li class="text-danger">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
                 </div>
                 <div class="form-login">
-                    <a class="btn btn-login">Sign Up</a>
+                    <label> Confirm Password</label>
+                    <div class="pass-group">
+                        <input type="password" class="pass-input" placeholder="Enter your password" name="password_confirmation" required autocomplete="new-password" >
+                        <span class="fas toggle-password fa-eye-slash"></span>
+                    </div>
+                    @if($errors->has('password_confirmation'))
+                <ul class="mt-2">
+                    @foreach($errors->get('password_confirmation') as $error)
+                        <li class="text-danger">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
                 </div>
+                {{-- <div class="form-login">
+                    <a class="btn btn-login">Sign Up</a>
+                </div> --}}
+                <div class="form-login">
+                    <input type="submit" class="btn btn-login" value="Sign Up">
+                </div>
+            </form>
+
                 <div class="signinform text-center">
-                    <h4>Already a user? <a href="signin.html" class="hover-a">Sign In</a></h4>
+                    <h4>Already a user? <a href="{{route('login')}}" class="hover-a">Sign In</a></h4>
                 </div>
                 <div class="form-setlogin">
                     <h4>Or sign up with</h4>

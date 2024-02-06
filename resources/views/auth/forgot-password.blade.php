@@ -25,33 +25,48 @@
 </x-guest-layout> --}}
 @extends('layouts.guest_layout')
 @section('content')
-<div class="account-content">
-    <div class="login-wrapper">
-        <div class="login-content">
-            <div class="login-userset ">
-                <div class="login-logo">
-                    <img src="{{asset('admin/assets/img/logo.png')}}" alt="img">
-                </div>
-                <div class="login-userheading">
-                    <h3>Forgot password?</h3>
-                    <h4>Don’t warry! it happens. Please enter the address <br>
-                        associated with your account.</h4>
-                </div>
-                <div class="form-login">
-                    <label>Email</label>
-                    <div class="form-addons">
-                        <input type="text" placeholder="Enter your email address">
-                        <img src="{{asset('admin/assets/img/icons/mail.svg')}}" alt="img">
+    <div class="account-content">
+        <div class="login-wrapper">
+            <div class="login-content">
+                <div class="login-userset ">
+                    <div class="login-logo">
+                        <img src="{{ asset('admin/assets/img/logo.png') }}" alt="img">
                     </div>
-                </div>
-                <div class="form-login">
+                    <div class="login-userheading">
+                        <h3>Forgot password?</h3>
+                        <h4>Don’t warry! it happens. Please enter the address <br>
+                            associated with your account.</h4>
+                    </div>
+                    <form method="POST" action="{{ route('password.email') }}">
+                        @csrf
+                        <div class="form-login">
+                            <label>Email</label>
+                            <div class="form-addons">
+                                <input type="email" name="email" :value="old('email')" required autofocus
+                                    placeholder="Enter your email address">
+                                <img src="{{ asset('admin/assets/img/icons/mail.svg') }}" alt="img">
+                            </div>
+                            @if ($errors->has('email'))
+                                <ul class="mt-2">
+                                    @foreach ($errors->get('email') as $error)
+                                        <li class="text-danger">{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                        {{-- <div class="form-login">
                     <a class="btn btn-login" href="signin.html">Submit</a>
+                </div> --}}
+                        <div class="form-login">
+                            <input type="submit" class="btn btn-login" value="Submit">
+                        </div>
+                    </form>
+
                 </div>
             </div>
-        </div>
-        <div class="login-img">
-            <img src="{{asset('admin/assets/img/login.jpg')}}" alt="img">
+            <div class="login-img">
+                <img src="{{ asset('admin/assets/img/login.jpg') }}" alt="img">
+            </div>
         </div>
     </div>
-</div>
 @endsection

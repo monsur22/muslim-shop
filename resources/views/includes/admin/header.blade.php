@@ -173,7 +173,7 @@
                         <span class="user-img"><img src="{{asset('admin/assets/img/profiles/avator1.jpg')}}" alt="">
                             <span class="status online"></span></span>
                         <div class="profilesets">
-                            <h6>John Doe</h6>
+                            <h6>{{ Auth::user()->name }}</h6>
                             <h5>Admin</h5>
                         </div>
                     </div>
@@ -183,8 +183,13 @@
                     <a class="dropdown-item" href="{{route('general.setting')}}"><i class="me-2"
                             data-feather="settings"></i>Settings</a>
                     <hr class="m-0">
-                    <a class="dropdown-item logout pb-0" href="signin.html"><img
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                    <a class="dropdown-item logout pb-0" href="{{route('logout')}}"  onclick="event.preventDefault();
+                    this.closest('form').submit();"><img
                             src="{{asset('admin/assets/img/icons/log-out.svg')}}" class="me-2" alt="img">Logout</a>
+                    </form>
+
                 </div>
             </div>
         </li>
