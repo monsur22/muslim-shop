@@ -1,7 +1,16 @@
-import './bootstrap';
+import "./bootstrap";
 
-import Alpine from 'alpinejs';
+// import Alpine from 'alpinejs';
 
-window.Alpine = Alpine;
+// window.Alpine = Alpine;
 
-Alpine.start();
+// Alpine.start();
+// document.addEventListener('DOMContentLoaded', () => {
+//     console.log("dom loaded");
+// })
+// document.addEventListener('livewire:navigated', () => {
+//     console.log("Navigated");
+
+// })
+
+

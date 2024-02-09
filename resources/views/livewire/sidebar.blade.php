@@ -1,4 +1,4 @@
-<div class="sidebar" id="sidebar">
+<div  wire:ignore class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
         <div  id="sidebar-menu" class="sidebar-menu">
             <ul>
@@ -26,9 +26,9 @@
                     <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/sales1.svg')}}" alt="img"><span>
                             Sales</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('sales.index')}}">Sales List</a></li>
+                        <li><a wire:navigate href="{{route('sales.index')}}">Sales List</a></li>
                         <li><a href="pos.html">POS</a></li>
-                        <li><a href="{{route('sales.create')}}">New Sales</a></li>
+                        <li><a wire:navigate href="{{route('sales.create')}}">New Sales</a></li>
                         {{-- <li><a href="salesreturnlists.html">Sales Return List</a></li>
                         <li><a href="createsalesreturns.html">New Sales Return</a></li> --}}
                     </ul>
@@ -37,19 +37,19 @@
                     <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/purchase1.svg')}}" alt="img"><span>
                             Purchase</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('purchase.index')}}">Purchase List</a></li>
-                        <li><a href="{{route('purchase.create')}}">Add Purchase</a></li>
-                        <li><a href="{{route('purchase.import')}}">Import Purchase</a></li>
+                        <li><a wire:navigate href="{{route('purchase.index')}}">Purchase List</a></li>
+                        <li><a wire:navigate href="{{route('purchase.create')}}">Add Purchase</a></li>
+                        <li><a wire:navigate href="{{route('purchase.import')}}">Import Purchase</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/expense1.svg')}}" alt="img"><span>
                             Expense</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('expense.index')}}">Expense List</a></li>
-                        <li><a href="{{route('expense.create')}}">Add Expense</a></li>
-                        <li><a href="{{route('expense-category.index')}}">Expense Category</a></li>
-                        <li><a href="{{route('expense-category.create')}}">Add Expense Category</a></li>
+                        <li><a wire:navigate href="{{route('expense.index')}}">Expense List</a></li>
+                        <li><a wire:navigate href="{{route('expense.create')}}">Add Expense</a></li>
+                        <li><a wire:navigate href="{{route('expense-category.index')}}">Expense Category</a></li>
+                        <li><a wire:navigate href="{{route('expense-category.create')}}">Add Expense Category</a></li>
 
                     </ul>
                 </li>
@@ -65,33 +65,33 @@
                     <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/transfer1.svg')}}" alt="img"><span>
                             Transfer</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('transfer.index')}}">Transfer List</a></li>
-                        <li><a href="{{route('transfer.create')}}">Add Transfer </a></li>
-                        <li><a href="{{route('transfer.import')}}">Import Transfer </a></li>
+                        <li><a wire:navigate href="{{route('transfer.index')}}">Transfer List</a></li>
+                        <li><a wire:navigate href="{{route('transfer.create')}}">Add Transfer </a></li>
+                        <li><a wire:navigate href="{{route('transfer.import')}}">Import Transfer </a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/return1.svg')}}" alt="img"><span>
                             Return</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('salesReturn.index')}}">Sales Return List</a></li>
-                        <li><a href="{{route('salesReturn.create')}}">Add Sales Return </a></li>
-                        <li><a href="{{route('purchaseReturn.index')}}">Purchase Return List</a></li>
-                        <li><a href="{{route('purchaseReturn.create')}}">Add Purchase Return </a></li>
+                        <li><a wire:navigate href="{{route('salesReturn.index')}}">Sales Return List</a></li>
+                        <li><a wire:navigate href="{{route('salesReturn.create')}}">Add Sales Return </a></li>
+                        <li><a wire:navigate href="{{route('purchaseReturn.index')}}">Purchase Return List</a></li>
+                        <li><a wire:navigate href="{{route('purchaseReturn.create')}}">Add Purchase Return </a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/users1.svg')}}" alt="img"><span>
                             People</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('customers.index')}}">Customer List</a></li>
-                        <li><a href="{{route('customers.create')}}">Add Customer </a></li>
-                        <li><a href="{{route('suppliers.index')}}">Supplier List</a></li>
-                        <li><a href="{{route('suppliers.create')}}">Add Supplier </a></li>
-                        {{-- <li><a href="{{route('purchase.index')}}">User List</a></li>
-                        <li><a href="{{route('purchase.index')}}">Add User</a></li> --}}
-                        <li><a href="{{route('stores.index')}}">Store List</a></li>
-                        <li><a href="{{route('stores.create')}}">Add Store</a></li>
+                        <li><a wire:navigate href="{{route('customers.index')}}">Customer List</a></li>
+                        <li><a wire:navigate href="{{route('customers.create')}}">Add Customer </a></li>
+                        <li><a wire:navigate href="{{route('suppliers.index')}}">Supplier List</a></li>
+                        <li><a wire:navigate href="{{route('suppliers.create')}}">Add Supplier </a></li>
+                        {{-- <li><a wire:navigate href="{{route('purchase.index')}}">User List</a></li>
+                        <li><a wire:navigate href="{{route('purchase.index')}}">Add User</a></li> --}}
+                        <li><a wire:navigate href="{{route('stores.index')}}">Store List</a></li>
+                        <li><a wire:navigate href="{{route('stores.create')}}">Add Store</a></li>
                     </ul>
                 </li>
                 {{-- <li class="submenu">
@@ -206,34 +206,34 @@
                     <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/time.svg')}}" alt="img"><span>
                             Report</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('purchase-order.report')}}">Purchase order report</a></li>
-                        <li><a href="{{route('inventory.report')}}">Inventory Report</a></li>
-                        <li><a href="{{route('sales.report')}}">Sales Report</a></li>
-                        <li><a href="{{route('invoice.report')}}">Invoice Report</a></li>
-                        <li><a href="{{route('purchase.report')}}">Purchase Report</a></li>
-                        <li><a href="{{route('supplier.report')}}">Supplier Report</a></li>
-                        <li><a href="{{route('customer.report')}}">Customer Report</a></li>
-                        {{-- <li><a href="{{route('expense.report')}}">Expense Report</a></li> --}}
+                        <li><a wire:navigate href="{{route('purchase-order.report')}}">Purchase order report</a></li>
+                        <li><a wire:navigate href="{{route('inventory.report')}}">Inventory Report</a></li>
+                        <li><a wire:navigate href="{{route('sales.report')}}">Sales Report</a></li>
+                        <li><a wire:navigate href="{{route('invoice.report')}}">Invoice Report</a></li>
+                        <li><a wire:navigate href="{{route('purchase.report')}}">Purchase Report</a></li>
+                        <li><a wire:navigate href="{{route('supplier.report')}}">Supplier Report</a></li>
+                        <li><a wire:navigate href="{{route('customer.report')}}">Customer Report</a></li>
+                        {{-- <li><a wire:navigate href="{{route('expense.report')}}">Expense Report</a></li> --}}
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/users1.svg')}}" alt="img"><span>
                             Users</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('users.create')}}">New User </a></li>
-                        <li><a href="{{route('users.index')}}">Users List</a></li>
+                        <li><a wire:navigate href="{{route('users.create')}}">New User </a></li>
+                        <li><a wire:navigate href="{{route('users.index')}}">Users List</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
-                    <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/settings.svg')}}" alt="img"><span>
+                    <a  href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/settings.svg')}}" alt="img"><span>
                             Settings</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('general.setting')}}">General Settings</a></li>
-                        <li><a href="{{route('email.setting')}}">Email Settings</a></li>
-                        <li><a href="{{route('payment.setting')}}">Payment Settings</a></li>
-                        <li><a href="{{route('currency.setting')}}">Currency Settings</a></li>
-                        <li><a href="{{route('groupPermission.setting')}}">Group Permissions</a></li>
-                        <li><a href="{{route('taxRates.setting')}}">Tax Rates</a></li>
+                        <li><a wire:navigate href="{{route('general.setting')}}">General Settings</a></li>
+                        <li><a wire:navigate href="{{route('email.setting')}}">Email Settings</a></li>
+                        <li><a wire:navigate href="{{route('payment.setting')}}">Payment Settings</a></li>
+                        <li><a wire:navigate href="{{route('currency.setting')}}">Currency Settings</a></li>
+                        <li><a wire:navigate href="{{route('groupPermission.setting')}}">Group Permissions</a></li>
+                        <li><a wire:navigate href="{{route('taxRates.setting')}}">Tax Rates</a></li>
                     </ul>
                 </li>
             </ul>

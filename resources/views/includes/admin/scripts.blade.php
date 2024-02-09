@@ -28,10 +28,11 @@
     <script src="{{asset('admin/assets/js/jquery-ui.min.js')}}"></script>
 
     <script src="{{asset('admin/assets/js/script.js')}}"></script>
+    <script src="{{asset('admin/assets/js/modify.js')}}"></script>
 
 
     {{-- script for menu active --}}
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             // Get the current URL
             var currentUrl = window.location.href;
@@ -64,4 +65,4 @@
                 }
             });
         });
-    </script>
+    </script> --}}

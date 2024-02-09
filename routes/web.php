@@ -22,7 +22,7 @@ use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\SupplierController;
 use App\Http\Controllers\admin\TransferController;
 use App\Http\Controllers\admin\UserController;
-
+use App\Livewire\Brand;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -103,5 +103,8 @@ Route::get('calender', [ ApplicationController::class,'calender'])->name('calend
 Route::get('email', [ ApplicationController::class,'email'])->name('email.application');
 
 Route::resource('notifications', NotificationController::class);
+
+//live wire
+Route::get('/test', Brand::class);
 
 require __DIR__.'/auth.php';
