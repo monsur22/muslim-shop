@@ -20,6 +20,7 @@
 
     <script src="{{asset('admin/assets/plugins/sweetalert/sweetalert2.all.min.js')}}"></script>
     <script src="{{asset('admin/assets/plugins/sweetalert/sweetalerts.min.js')}}"></script>
+    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
 
     <script src="{{asset('admin/assets/plugins/fullcalendar/fullcalendar.min.js')}}"></script>
     <script src="{{asset('admin/assets/plugins/fullcalendar/jquery.fullcalendar.js')}}"></script>
@@ -30,39 +31,12 @@
     <script src="{{asset('admin/assets/js/script.js')}}"></script>
     <script src="{{asset('admin/assets/js/modify.js')}}"></script>
 
+{{-- <!-- Include DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
 
-    {{-- script for menu active --}}
-    {{-- <script>
-        $(document).ready(function() {
-            // Get the current URL
-            var currentUrl = window.location.href;
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-            // Loop through each submenu item
-            $(".submenu > ul > li").each(function() {
-                // Get the href attribute of the submenu item
-                var menuItemUrl = $(this).find('a').attr('href');
-
-                // Check if the current URL contains the menu item URL
-                if (currentUrl.includes(menuItemUrl)) {
-
-                    // Remove the "active" class from all other submenu items
-                    $(".submenu > ul > li > a").removeClass("active");
-
-                    // Add the "active" class to the selected submenu item
-                    $(this).find('a').addClass("active");
-
-                    // Add the "active" class to the parent submenu item
-                    $(this).closest('.submenu').find('> a').addClass("active");
-
-                    // Add the "subdrop" class to the parent submenu item
-                    $(this).closest('.submenu').find('> a').addClass("subdrop");
-
-                    // Add the "active" class to the <a> element within <li>
-                    $(this).find('a').addClass("active");
-
-                    // Remove the "active" class from the default active menu item
-                    $(".default-active").removeClass("active");
-                }
-            });
-        });
-    </script> --}}
+<!-- Include DataTables JS -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script> --}}

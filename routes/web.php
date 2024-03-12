@@ -105,6 +105,6 @@ Route::get('email', [ ApplicationController::class,'email'])->name('email.applic
 Route::resource('notifications', NotificationController::class);
 
 //live wire
-Route::get('/test', Brand::class);
+// Route::get('/test', Brand::class);
 
 require __DIR__.'/auth.php';
