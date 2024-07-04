@@ -6,7 +6,7 @@
             <h6>Manage your Store</h6>
         </div>
         <div class="page-btn">
-            <a href="addstore.html" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img" class="me-2">Add Store</a>
+            <a href="{{route('stores.create')}}" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" alt="img" class="me-2">Add Store</a>
         </div>
     </div>
 

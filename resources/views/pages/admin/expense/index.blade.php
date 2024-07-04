@@ -6,7 +6,7 @@
             <h6>Manage your purchases</h6>
         </div>
         <div class="page-btn">
-            <a href="createexpense.html" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" class="me-2" alt="img">Add New Expense</a>
+            <a href="{{route('expense.create')}}" class="btn btn-added"><img src="{{asset('admin/assets/img/icons/plus.svg')}}" class="me-2" alt="img">Add New Expense</a>
         </div>
     </div>
 

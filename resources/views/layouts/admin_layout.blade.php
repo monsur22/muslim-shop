@@ -10,9 +10,14 @@
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
     <title>Dreams Pos admin template</title>
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- style -->
     @include('includes.admin.styles')
+
+    @livewireStyles
+
 </head>
 
 <body>
@@ -27,7 +32,8 @@
 
 
         <!-- sidebar -->
-        @include('includes.admin.sidebar')
+        {{-- @include('includes.admin.sidebar') --}}
+        @livewire('sidebar')
 
         <div class="page-wrapper">
             <div class="content">
@@ -36,6 +42,7 @@
         </div>
     </div>
 
+    @livewireScripts
 
     <!-- scripts -->
     @include('includes.admin.scripts')

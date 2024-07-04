@@ -1,25 +1,25 @@
 <div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
-        <div id="sidebar-menu" class="sidebar-menu">
+        <div  id="sidebar-menu" class="sidebar-menu">
             <ul>
-                <li class="active">
-                    <a href="{{route('dashboard')}}"><img src="{{asset('admin/assets/img/icons/dashboard.svg')}}" alt="img"><span>
+                <li class="active default-active">
+                    <a wire:navigate href="{{route('dashboard')}}"><img src="{{asset('admin/assets/img/icons/dashboard.svg')}}" alt="img"><span>
                             Dashboard</span> </a>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="{{asset('admin/assets/img/icons/product.svg')}}" alt="img"><span>
                             Product</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="{{route('products.index')}}">Product List</a></li>
-                        <li><a href="{{route('products.create')}}">Add Product</a></li>
-                        <li><a href="{{route('categories.index')}}">Category List</a></li>
-                        <li><a href="{{route('categories.create')}}">Add Category</a></li>
-                        <li><a href="{{route('sub-categories.index')}}">Sub Category List</a></li>
-                        <li><a href="{{route('sub-categories.create')}}">Add Sub Category</a></li>
-                        <li><a href="{{route('brands.index')}}">Brand List</a></li>
-                        <li><a href="{{route('brands.create')}}">Add Brand</a></li>
-                        <li><a href="{{route('product.import')}}">Import Products</a></li>
-                        <li><a href="{{route('print.barcode')}}">Print Barcode</a></li>
+                        <li><a wire:navigate href="{{route('products.index')}}">Product List</a></li>
+                        <li><a wire:navigate href="{{route('products.create')}}">Add Product</a></li>
+                        <li><a wire:navigate href="{{route('categories.index')}}">Category List</a></li>
+                        <li><a wire:navigate href="{{route('categories.create')}}">Add Category</a></li>
+                        <li><a wire:navigate href="{{route('sub-categories.index')}}">Sub Category List</a></li>
+                        <li><a wire:navigate href="{{route('sub-categories.create')}}">Add Sub Category</a></li>
+                        <li><a wire:navigate href="{{route('brands.index')}}">Brand List</a></li>
+                        <li><a wire:navigate href="{{route('brands.create')}}">Add Brand</a></li>
+                        <li><a wire:navigate href="{{route('product.import')}}">Import Products</a></li>
+                        <li><a wire:navigate href="{{route('print.barcode')}}">Print Barcode</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
