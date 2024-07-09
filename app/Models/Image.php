@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Brand extends Model
+class Image extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = [
-        'name',
-    ];
 
-    public function images()
+    protected $fillable = ['imageable_id', 'imageable_type', 'url'];
+
+    public function imageable()
     {
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->morphTo();
     }
 }
