@@ -7,7 +7,6 @@ use App\Http\Requests\BrandRequest;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
 use App\Services\BrandService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class BrandController extends Controller
