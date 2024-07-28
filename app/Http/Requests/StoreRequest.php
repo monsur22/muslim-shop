@@ -18,16 +18,7 @@ class StoreRequest extends FormRequest
 
     public function rules(): array
     {
-        // return [
-        //     'name' => 'required|string|max:255',
-        //     'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ];
 
-        // $rules = [
-        //     'name' => 'required|string|max:255',
-        // ];
-
-        // Only require image during creation, allow update without image
         if ($this->isMethod('post')) {
             $rules['name'] = 'required|string|max:255';
             $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';

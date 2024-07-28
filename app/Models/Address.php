@@ -6,20 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Store extends Model
+class Address extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $fillable = [
-        'name',
+        'user_id',
+        'address_line_1',
+        'city',
+        'state',
+        'postal_code',
+        'country',
     ];
 
-    public function images()
+    public function user()
     {
-        return $this->morphMany(Image::class, 'imageable');
-    }
-
-    public function products()
-    {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(User::class);
     }
 }

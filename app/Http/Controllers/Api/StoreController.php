@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRequest;
-use App\Http\Resources\storeResource;
+use App\Http\Resources\StoreResource;
 use App\Models\Store;
 use App\Services\StoreService;
 use Illuminate\Http\Response;
@@ -23,7 +23,7 @@ class StoreController extends Controller
     public function index()
     {
         $store = $this->storeService->index();
-        return storeResource::collection($store);
+        return StoreResource::collection($store);
     }
 
     /**
