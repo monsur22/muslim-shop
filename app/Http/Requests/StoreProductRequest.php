@@ -35,6 +35,7 @@ class StoreProductRequest extends FormRequest
             $rules['status'] = 'required|boolean';
             $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
             $rules['description'] = 'required|string';
+            $rules['quantity'] = 'required|integer';
         } else {
             $rules['name'] = 'sometimes|string|max:255';
             $rules['image'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
@@ -77,6 +78,7 @@ class StoreProductRequest extends FormRequest
             'image.image' => 'The file must be an image.',
             'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',
             'image.max' => 'The image may not be greater than 2048 kilobytes.',
+            'quantity.integer' => 'The quantity must be an integer.',
         ];
     }
 }

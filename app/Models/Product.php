@@ -48,6 +48,15 @@ class Product extends Model
         return $this->hasOne(ProductDescription::class);
     }
 
+    public function inventory()
+    {
+        return $this->hasOne(ProductInventory::class);
+    }
+
+    public function stockLevels()
+    {
+        return $this->hasMany(StockLevel::class);
+    }
      // Query Scopes
      public function scopeFilter($query, $filters)
      {

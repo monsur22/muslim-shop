@@ -31,9 +31,10 @@ class ProductResource extends JsonResource
             'store' => in_array('store', $includes) || !$includes ? new StoreResource($this->whenLoaded('store')) : null,
             'user' => in_array('user', $includes) || !$includes ? new UserResource($this->whenLoaded('user')) : null,
             'images' => in_array('images', $includes) || !$includes ? ImageResource::collection($this->whenLoaded('images')) : [],
-            'description' => in_array('images', $includes) || !$includes ? new ProductDescriptionResource($this->whenLoaded('description')) : [],
-
+            'description' => in_array('description', $includes) || !$includes ? new ProductDescriptionResource($this->whenLoaded('description')) : [],
             'price' => $this->price,
+            'inventory' => in_array('inventory', $includes) || !$includes ? new ProductInventoryResource($this->whenLoaded('inventory')) : [],
+            'stockLevels' => in_array('stockLevels', $includes) || !$includes ?  StockLevelResource::collection($this->whenLoaded('stockLevels')) : [],
             'expire_date' => $this->expire_date,
             'status' => $this->status,
             'created_at' => $this->created_at,
