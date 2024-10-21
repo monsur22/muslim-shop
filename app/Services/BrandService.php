@@ -4,10 +4,10 @@ namespace App\Services;
 
 use App\Http\Requests\BrandRequest;
 use App\Models\Brand;
-use Illuminate\Http\Request;
+use App\Services\Interfaces\BrandServiceInterface;
 use Illuminate\Support\Facades\Storage;
 
-class BrandService
+class BrandService implements BrandServiceInterface
 {
     public function index()
     {

@@ -7,13 +7,15 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use App\Services\CategoryService;
+use App\Services\Interfaces\CategoryServiceInterface;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
     protected $categoryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(CategoryServiceInterface $categoryService)
     {
         $this->categoryService = $categoryService;
     }
@@ -22,8 +24,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->categoryService->getAllCategories();
-        return CategoryResource::collection($categories);
+        try {
+            $categories = $this->categoryService->getAllCategories();
+            return CategoryResource::collection($categories);
+        } catch (\Exception $e) {
+            Log::error('Error fetching category: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to fetch category'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     /**

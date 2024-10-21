@@ -39,17 +39,25 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
-        $this->ensureIsNotRateLimited();
+        // $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+        // if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        //     RateLimiter::hit($this->throttleKey());
 
+        //     throw ValidationException::withMessages([
+        //         'email' => __('auth.failed'),
+        //     ]);
+        // }
+
+        // RateLimiter::clear($this->throttleKey());
+
+        $credentials = $this->only('email', 'password');
+
+        if (!Auth::attempt($credentials)) {
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
             ]);
         }
-
-        RateLimiter::clear($this->throttleKey());
     }
 
     /**
@@ -80,6 +88,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->input('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->input('email')) . '|' . $this->ip());
     }
 }

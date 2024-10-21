@@ -7,24 +7,31 @@ use App\Http\Requests\BrandRequest;
 use App\Http\Resources\BrandResource;
 use App\Models\Brand;
 use App\Services\BrandService;
+use App\Services\Interfaces\BrandServiceInterface;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class BrandController extends Controller
 {
     protected $brandService;
 
-    public function __construct(BrandService $brandService)
+    public function __construct(BrandServiceInterface $brandService)
     {
         $this->brandService = $brandService;
     }
 
-    /**
+       /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $brands = $this->brandService->index();
-        return BrandResource::collection($brands);
+        try {
+            $brands = $this->brandService->index();
+            return BrandResource::collection($brands);
+        } catch (\Exception $e) {
+            Log::error('Error fetching brands: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to fetch brands'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -32,8 +39,13 @@ class BrandController extends Controller
      */
     public function store(BrandRequest $request)
     {
-        $brand = $this->brandService->store($request);
-        return new BrandResource($brand);
+        try {
+            $brand = $this->brandService->store($request);
+            return new BrandResource($brand);
+        } catch (\Exception $e) {
+            Log::error('Error storing brand: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to store brand'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -41,7 +53,13 @@ class BrandController extends Controller
      */
     public function show(Brand $brand)
     {
-        return new BrandResource($brand->load('images'));
+        try {
+            $brand->load('images');
+            return new BrandResource($brand);
+        } catch (\Exception $e) {
+            Log::error('Error fetching brand: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to fetch brand'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -49,8 +67,13 @@ class BrandController extends Controller
      */
     public function update(BrandRequest $request, Brand $brand)
     {
-        $brand = $this->brandService->update($request, $brand);
-        return new BrandResource($brand);
+        try {
+            $brand = $this->brandService->update($request, $brand);
+            return new BrandResource($brand);
+        } catch (\Exception $e) {
+            Log::error('Error updating brand: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to update brand'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -58,7 +81,12 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        $this->brandService->destroy($brand);
-        return response(null, Response::HTTP_NO_CONTENT);
+        try {
+            $this->brandService->destroy($brand);
+            return response(null, Response::HTTP_NO_CONTENT);
+        } catch (\Exception $e) {
+            Log::error('Error deleting brand: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to delete brand'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

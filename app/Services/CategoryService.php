@@ -27,10 +27,6 @@ class CategoryService
         return $category->load('images');
     }
 
-    public function getCategoryById($id)
-    {
-        return Category::findOrFail($id);
-    }
 
     public function updateCategory(CategoryRequest $request, Category $category)
     {

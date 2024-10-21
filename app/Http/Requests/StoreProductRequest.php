@@ -28,7 +28,7 @@ class StoreProductRequest extends FormRequest
             $rules['category_id'] = 'required|exists:categories,id';
             $rules['supplier_id'] = 'required|exists:users,id';
             $rules['brand_id'] = 'nullable|exists:brands,id';
-            $rules['store_id'] = 'nullable|exists:stores,id';
+            $rules['store_id'] = 'required|exists:stores,id';
             $rules['user_id'] = 'required|exists:users,id';
             $rules['price'] = 'required|integer';
             $rules['expire_date'] = 'nullable|date';
@@ -74,6 +74,8 @@ class StoreProductRequest extends FormRequest
             'expire_date.date' => 'The expiration date is not a valid date.',
             'status.required' => 'The status is required.',
             'status.boolean' => 'The status must be true or false.',
+            'store_id.required' => 'The status must be true or false.',
+            'store_id.exists' => 'The selected store is invalid.',
             'image.required' => 'The image is required.',
             'image.image' => 'The file must be an image.',
             'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',

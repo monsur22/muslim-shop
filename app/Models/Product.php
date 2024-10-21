@@ -10,7 +10,7 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'name', 'category_id', 'supplier_id', 'brand_id', 'store_id', 'user_id', 'price', 'expire_date', 'status'
+        'name', 'category_id', 'supplier_id', 'brand_id', 'user_id', 'price', 'expire_date', 'status'
     ];
 
     public function category()
@@ -28,10 +28,10 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function store()
-    {
-        return $this->belongsTo(Store::class);
-    }
+    // public function store()
+    // {
+    //     return $this->belongsTo(Store::class);
+    // }
 
     public function user()
     {
@@ -56,6 +56,16 @@ class Product extends Model
     public function stockLevels()
     {
         return $this->hasMany(StockLevel::class);
+    }
+
+    public function stores()
+    {
+        return $this->hasManyThrough(Store::class, StockLevel::class, 'product_id', 'id', 'id', 'store_id');
+    }
+    
+    public function transfers()
+    {
+        return $this->hasMany(Transfer::class);
     }
      // Query Scopes
      public function scopeFilter($query, $filters)
@@ -82,10 +92,10 @@ class Product extends Model
                    })
                    ->orWhereHas('brand', function($q) use ($searchTerm) {
                        $q->where('name', 'like', "%{$searchTerm}%");
-                   })
-                   ->orWhereHas('store', function($q) use ($searchTerm) {
-                       $q->where('name', 'like', "%{$searchTerm}%");
                    });
+                //    ->orWhereHas('store', function($q) use ($searchTerm) {
+                //        $q->where('name', 'like', "%{$searchTerm}%");
+                //    });
              });
          }
      }

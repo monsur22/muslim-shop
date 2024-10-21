@@ -18,8 +18,14 @@ class Store extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function products()
+    // public function products()
+    // {
+    //     return $this->hasMany(Product::class);
+    // }
+    
+    public function stockLevels()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(StockLevel::class);
     }
+
 }

@@ -30,7 +30,7 @@ class ProductFilter
             'category_id' => $this->request->query('category_id'),
             'supplier_id' => $this->request->query('supplier_id'),
             'brand_id' => $this->request->query('brand_id'),
-            'store_id' => $this->request->query('store_id'),
+            // 'store_id' => $this->request->query('store_id'),
             'status' => $this->request->query('status')
         ];
 

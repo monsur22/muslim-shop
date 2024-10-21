@@ -4,10 +4,11 @@ namespace App\Services;
 
 use App\Http\Requests\StoreRequest;
 use App\Models\Store;
+use App\Services\Interfaces\StoreInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class StoreService
+class StoreService implements StoreInterface
 {
     public function index()
     {

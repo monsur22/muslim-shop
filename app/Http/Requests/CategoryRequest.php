@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             $rules['name'] = 'required|string|max:255';
-            $rules['parent_id'] = 'nullable|exists:categories,id'; // Check if parent_id exists in categories
+            $rules['parent_id'] = 'nullable|exists:categories,id';
             $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
         } else {
             $rules['name'] = 'sometimes|string|max:255';

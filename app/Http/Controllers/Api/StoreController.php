@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRequest;
 use App\Http\Resources\StoreResource;
 use App\Models\Store;
+use App\Services\Interfaces\StoreInterface;
 use App\Services\StoreService;
 use Illuminate\Http\Response;
 
@@ -13,7 +14,7 @@ class StoreController extends Controller
 {
     protected $storeService;
 
-    public function __construct(StoreService $storeService)
+    public function __construct(StoreInterface $storeService)
     {
         $this->storeService = $storeService;
     }
