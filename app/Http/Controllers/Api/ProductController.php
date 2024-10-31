@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\StoreProductResource;
+use App\Http\Resources\StoreResource;
 use App\Models\Product;
+use App\Models\Store;
+use App\Models\StoreProduct;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,7 +28,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = $this->productService->index($request);
-        return ProductResource::collection($products);
+        return StoreProductResource::collection($products);
     }
 
     /**
@@ -32,33 +36,26 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        // dd($request->all());
         $product = $this->productService->createProduct($request);
-        return new ProductResource($product);
-
-
+        dd($product);
+        return new StoreProductResource($product);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product, Request $request)
+    public function show(StoreProduct $product, Request $request)
     {
-        // return new ProductResource($product->load('images', 'category', 'supplier', 'brand', 'store', 'user','description));
-        $includes = $request->query('include') ? explode(',', $request->query('include')) : [];
-        $product->load($includes);
-    
-        return new ProductResource($product);
-
+        return new StoreProductResource($product->load('product', 'product.images', 'product.category', 'product.supplier', 'product.brand', 'product.user', 'product.description'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreProductRequest $request, Product $product)
+    public function update(StoreProductRequest $request, StoreProduct $product)
     {
         $product = $this->productService->updateProduct($request, $product);
-        return new ProductResource($product);
+        return new StoreProductResource($product);
     }
 
     /**
@@ -69,5 +66,4 @@ class ProductController extends Controller
         $this->productService->deleteProduct($product);
         return response(null, Response::HTTP_NO_CONTENT);
     }
-
 }

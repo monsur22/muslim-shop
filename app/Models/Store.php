@@ -23,9 +23,14 @@ class Store extends Model
     //     return $this->hasMany(Product::class);
     // }
     
-    public function stockLevels()
+    // public function stockLevels()
+    // {
+    //     return $this->hasMany(StockLevel::class);
+    // }
+
+    public function storeProducts()
     {
-        return $this->hasMany(StockLevel::class);
+        return $this->hasMany(StoreProduct::class);
     }
 
 }

@@ -2,39 +2,45 @@
 
 namespace App\Services;
 
-use App\Filters\ProductFilter;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use App\Models\ProductDescription;
 use App\Models\ProductInventory;
 use App\Models\StockLevel;
+use App\Models\Store;
+use App\Models\StoreProduct;
+use App\Services\Interfaces\ProductServiceInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class ProductService
+class ProductService implements ProductServiceInterface
 {
     public function index($request)
     {
+        // Get the number of items per page from the request or default to 10
         $perPage = $request->query('per_page', 10);
 
-        // Get products with their stock levels and related stores
-        $products = (new ProductFilter($request))->apply()
-            ->with(['images', 'category', 'supplier', 'brand', 'user', 'description', 'stockLevels.store'])
-            ->get();
+        // Start building the query for StoreProduct with necessary relationships
+        $query = StoreProduct::with([
+            'store',
+            'product.images',
+            'product.category',
+            'product.supplier',
+            'product.brand',
+            'product.user',
+            'product.description',
+        ]);
 
-        // Flatten the products collection by generating a separate entry for each store
-        $productsWithStores = $products->flatMap(function ($product) {
-            return $product->stockLevels->map(function ($stockLevel) use ($product) {
-                $productClone = clone $product;
-                $productClone->stockLevels = [$stockLevel]; // Only keep the current store's stock level
-                return $productClone;
-            });
-        });
+        // Apply filters to the query
+        $this->applyFilters($query, $request);
+
+        // Fetch filtered results
+        $filteredProducts = $query->get();
 
         // Paginate the flattened collection
         $paginatedProducts = new \Illuminate\Pagination\LengthAwarePaginator(
-            $productsWithStores->forPage($request->input('page', 1), $perPage),
-            $productsWithStores->count(),
+            $filteredProducts->forPage($request->input('page', 1), $perPage),
+            $filteredProducts->count(),
             $perPage,
             $request->input('page', 1),
             ['path' => $request->url(), 'query' => $request->query()]
@@ -42,6 +48,44 @@ class ProductService
 
         return $paginatedProducts;
     }
+
+    protected function applyFilters($query, $request)
+    {
+        // Define the filters to be applied
+        $filters = [
+            'product_name' => function ($q, $value) {
+                $q->whereHas('product', function ($query) use ($value) {
+                    $query->where('name', $value);
+                });
+            },
+            'store_id' => function ($q, $value) {
+                $q->where('store_id', $value);
+            },
+            'category_id' => function ($q, $value) {
+                $q->whereHas('product.category', function ($query) use ($value) {
+                    $query->where('id', $value);
+                });
+            },
+            'brand_id' => function ($q, $value) {
+                $q->whereHas('product.brand', function ($query) use ($value) {
+                    $query->where('id', $value);
+                });
+            },
+            'description' => function ($q, $value) {
+                $q->whereHas('product.description', function ($query) use ($value) {
+                    $query->where('description', 'like', '%' . $value . '%');
+                });
+            }
+        ];
+
+        // Loop through the filters and apply them if present in the request
+        foreach ($filters as $filter => $callback) {
+            if ($request->has($filter)) {
+                $callback($query, $request->input($filter));
+            }
+        }
+    }
+
 
     public function createProduct(StoreProductRequest $request)
     {
@@ -61,14 +105,18 @@ class ProductService
 
             // Create or update the product inventory
             $quantity = $request->filled('quantity') ? $request->quantity : 0;
-            ProductInventory::updateOrCreate(
-                ['product_id' => $product->id],
-                ['quantity' => $quantity]
+            $storeProduct = StoreProduct::updateOrCreate(
+                [
+                    'product_id' => $product->id,
+                    'store_id' => $request->store_id,
+                ],
+                [
+                    'quantity' => $quantity,
+                    'visible' => $request->has('visible') ? $request->visible : true,
+                ]
             );
-
             StockLevel::create([
-                'product_id' => $product->id,
-                'store_id' => $request->store_id,
+                'product_id' => $storeProduct->id,
                 'quantity' => $request->quantity,
                 'last_updated' => now(),
             ]);
@@ -80,9 +128,10 @@ class ProductService
                 ]);
             }
 
+
             // Commit the transaction
             DB::commit();
-            return $product->load('images', 'category', 'supplier', 'brand', 'user', 'description', 'inventory', 'stockLevels');
+            return $product->load('images', 'category', 'supplier', 'brand', 'user', 'description', 'stockLevels');
         } catch (\Exception $e) {
             // Rollback the transaction in case of an error
             DB::rollBack();
@@ -90,34 +139,36 @@ class ProductService
         }
     }
 
-    public function updateProduct(StoreProductRequest $request, Product $product)
+    public function updateProduct(StoreProductRequest $request, StoreProduct $storeProduct)
     {
-        $product->update($request->all());
+        $storeProduct->product->update($request->all());
 
         if ($request->filled('description')) {
-            $product->description()->updateOrCreate(
-                ['product_id' => $product->id],
+            $storeProduct->product->description()->updateOrCreate(
+                ['product_id' => $storeProduct->product_id],
                 ['description' => $request->description]
             );
         }
-
+        $storeProduct = StoreProduct::where('store_id', $request->store_id)
+            ->where('product_id', $storeProduct->product_id)
+            ->firstOrFail();
         // Handle quantity and stock level updates
         if ($request->filled('quantity')) {
-            $this->updateProductQuantity($request, $product);
+            $this->updateProductQuantity($request, $storeProduct);
         }
         if ($request->hasFile('image')) {
-            if ($product->images()->exists()) {
-                Storage::disk('public')->delete($product->images()->first()->url);
-                $product->images()->delete();
+            if ($storeProduct->product->images()->exists()) {
+                Storage::disk('public')->delete($storeProduct->product->images()->first()->url);
+                $storeProduct->product->images()->delete();
             }
 
             $path = $request->file('image')->store('images', 'public');
-            $product->images()->create([
+            $storeProduct->product->images()->create([
                 'url' => $path,
             ]);
         }
 
-        return $product->load('images', 'category', 'supplier', 'brand', 'user', 'description', 'inventory', 'stockLevels');
+        return $storeProduct->load('product.images', 'product.category', 'product.supplier', 'product.brand', 'product.user', 'product.description', 'stockLevels');
     }
 
     public function deleteProduct(Product $product)
@@ -137,7 +188,10 @@ class ProductService
             if ($product->description()->exists()) {
                 $product->description()->delete();
             }
-
+            // store Products
+            if ($product->storeProducts()->exists()) {
+                $product->storeProducts()->delete();
+            }
             // Delete the product
             $product->delete();
 
@@ -157,32 +211,61 @@ class ProductService
      * @param Product $product
      * @return void
      */
-    public function updateProductQuantity(StoreProductRequest $request, Product $product)
+    public function updateProductQuantity(StoreProductRequest $request, StoreProduct $storeProduct)
     {
         if ($request->filled('quantity')) {
             $newQuantity = $request->quantity;
-            $currentStockLevel = $product->stockLevels()->where('store_id', $request->store_id ?? $product->store_id)->first();
-            if ($currentStockLevel) {
-                $quantityDifference = $newQuantity - $product->inventory->quantity;
-                $currentStockLevel->update([
-                    'quantity' => $currentStockLevel->quantity + $quantityDifference,
-                    'last_updated' => now(),
-                ]);
-                $product->inventory()->update([
+
+            // Find the specific StoreProduct instance
+            $currentStoreProduct = $storeProduct->where('store_id', $request->store_id)
+                ->where('product_id', $storeProduct->product_id)
+                ->first();
+
+
+            if ($currentStoreProduct) {
+                // Calculate the difference in quantity
+                $quantityDifference = $newQuantity - $currentStoreProduct->quantity;
+
+                // Find the related stock levels for the store product
+                $stockLevel = $currentStoreProduct->stockLevels()->first();
+
+
+                if ($stockLevel) {
+                    $stockLevel->update([
+                        'quantity' => $stockLevel->quantity + $quantityDifference,
+                        'last_updated' => now(),
+                    ]);
+                } else {
+                    // If no stock level exists, create a new one
+                    $currentStoreProduct->stockLevels()->create([
+                        'product_id' => $storeProduct->id,
+                        'store_id' => $request->store_id,
+                        'quantity' => $newQuantity,
+                        'last_updated' => now(),
+                    ]);
+                }
+
+                // Update the store product quantity
+                $currentStoreProduct->update([
                     'quantity' => $newQuantity,
+                    'updated_at' => now(),
                 ]);
             } else {
-                $product->stockLevels()->create([
-                    'product_id' => $product->id,
-                    'store_id' => $request->store_id ?? $product->store_id,
+                // If no current store product exists, create a new one
+                $newStoreProduct = $storeProduct->create([
+                    'product_id' => $storeProduct->id,
+                    'store_id' => $request->store_id,
+                    'quantity' => $newQuantity,
+                    'updated_at' => now(),
+                ]);
+
+                // Create a new stock level for the new store product
+                $newStoreProduct->stockLevels()->create([
+                    'product_id' => $storeProduct->id,
+                    'store_id' => $request->store_id,
                     'quantity' => $newQuantity,
                     'last_updated' => now(),
                 ]);
-
-                $product->inventory()->updateOrCreate(
-                    ['product_id' => $product->id],
-                    ['quantity' => $newQuantity]
-                );
             }
         }
     }

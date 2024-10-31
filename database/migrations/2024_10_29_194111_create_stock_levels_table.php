@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('stock_levels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->foreignId('store_id')->nullable()->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->timestamp('last_updated')->useCurrent();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('product_id')->references('id')->on('store_products')->onDelete('cascade');
         });
     }
 

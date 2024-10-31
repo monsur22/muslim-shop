@@ -4,9 +4,10 @@ namespace App\Services;
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Services\Interfaces\CategoryServiceInterface;
 use Illuminate\Support\Facades\Storage;
 
-class CategoryService
+class CategoryService implements CategoryServiceInterface
 {
     public function getAllCategories()
     {

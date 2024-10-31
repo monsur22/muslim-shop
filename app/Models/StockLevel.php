@@ -11,16 +11,13 @@ class StockLevel extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'product_id', 'store_id', 'quantity', 'last_updated'
+        'product_id','quantity', 'last_updated'
     ];
 
-    public function product()
+
+    public function storeProduct()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(StoreProduct::class);
     }
 
-    public function store()
-    {
-        return $this->belongsTo(Store::class);
-    }
 }

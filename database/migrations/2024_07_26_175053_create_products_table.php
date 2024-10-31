@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('price');
             $table->dateTime('expire_date')->nullable();
-            $table->boolean('status')->default(true);
+            // $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

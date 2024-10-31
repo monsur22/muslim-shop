@@ -32,7 +32,7 @@ class StoreProductRequest extends FormRequest
             $rules['user_id'] = 'required|exists:users,id';
             $rules['price'] = 'required|integer';
             $rules['expire_date'] = 'nullable|date';
-            $rules['status'] = 'required|boolean';
+            // $rules['status'] = 'required|boolean';
             $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
             $rules['description'] = 'required|string';
             $rules['quantity'] = 'required|integer';
@@ -72,8 +72,8 @@ class StoreProductRequest extends FormRequest
             'price.required' => 'The price is required.',
             'price.integer' => 'The price must be an integer.',
             'expire_date.date' => 'The expiration date is not a valid date.',
-            'status.required' => 'The status is required.',
-            'status.boolean' => 'The status must be true or false.',
+            // 'status.required' => 'The status is required.',
+            // 'status.boolean' => 'The status must be true or false.',
             'store_id.required' => 'The status must be true or false.',
             'store_id.exists' => 'The selected store is invalid.',
             'image.required' => 'The image is required.',

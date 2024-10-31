@@ -10,7 +10,7 @@ class Product extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'name', 'category_id', 'supplier_id', 'brand_id', 'user_id', 'price', 'expire_date', 'status'
+        'name', 'category_id', 'supplier_id', 'brand_id', 'user_id', 'price', 'expire_date'
     ];
 
     public function category()
@@ -28,11 +28,6 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    // public function store()
-    // {
-    //     return $this->belongsTo(Store::class);
-    // }
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -48,21 +43,15 @@ class Product extends Model
         return $this->hasOne(ProductDescription::class);
     }
 
-    public function inventory()
-    {
-        return $this->hasOne(ProductInventory::class);
-    }
-
-    public function stockLevels()
-    {
-        return $this->hasMany(StockLevel::class);
-    }
-
     public function stores()
     {
-        return $this->hasManyThrough(Store::class, StockLevel::class, 'product_id', 'id', 'id', 'store_id');
+        return $this->hasManyThrough(Store::class, 'product_id', 'id', );
     }
     
+    public function storeProducts()
+    {
+        return $this->hasMany(StoreProduct::class);
+    }
     public function transfers()
     {
         return $this->hasMany(Transfer::class);
